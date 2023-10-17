@@ -1,0 +1,49 @@
+#splashDiv {
+    position: relative;
+    overflow-x: none;
+}
+
+#splashImage {
+    position: relative;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+
+#splashLogo {
+    position: absolute;
+    width: 30%;
+    left: 35%;
+    top: 300px;
+}
+
+#navBar {
+    background-color: white;
+    box-shadow: 0 4px 5px -5px gray;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+#greeceIntro {
+    display: flex;
+    flex-direction: row;
+    padding: 80px;
+}
+
+#grenadaIntro {
+    display: flex;
+    flex-direction: row;
+    padding: 80px;
+}
