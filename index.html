@@ -9,8 +9,21 @@
     </head>
     <body>
 
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="index.html">Home</a>
+            <a href="thinkingGeographically.html">Thinking Geographically</a>
+            <a href="#">Other</a>
+            <a href="#">Other</a>
+          </div>
+
         <header id="navBar">
-            <p>hi</p>
+            <span style="font-size:30px; cursor:pointer; font-size: 60px;" onclick="openNav()">&#9776;</span>
+            <!-- <div style="display: flex; flex-direction: row; float: right; height: 80px; line-height: 80px;">
+                <a href="index.html" class="navLink">Home</a>
+                <a href="thinkingGeographically.html" class="navLink">Thinking Geographically</a>
+            </div> -->
+            <h1 style="float: right; margin-right: 70px;">Ben Jaynes</h1>
         </header>
 
         <div id="splashDiv">
@@ -34,6 +47,14 @@
             </div>
         </div>
 
-        
+        <script>
+            function openNav() {
+              document.getElementById("mySidenav").style.width = "250px";
+            }
+            
+            function closeNav() {
+              document.getElementById("mySidenav").style.width = "0";
+            }
+        </script>
     </body>
 </html>

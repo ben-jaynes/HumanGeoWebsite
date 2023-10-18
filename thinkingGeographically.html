@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Ben Jaynes</title>
+        <!-- <link rel="shortcut icon" href="CSS/Images/particle4.png" type="image/x-icon"> -->
+        <link href="CSS/index.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="index.html">Home</a>
+            <a href="thinkingGeographically.html">Thinking Geographically</a>
+            <a href="#">Other</a>
+            <a href="#">Other</a>
+          </div>
+
+        <header id="navBar">
+            <span style="font-size:30px; cursor:pointer; font-size: 60px;" onclick="openNav()">&#9776;</span>
+            <!-- <div style="display: flex; flex-direction: row; float: right; height: 80px; line-height: 80px;">
+                <a href="index.html" class="navLink">Home</a>
+                <a href="thinkingGeographically.html" class="navLink">Thinking Geographically</a>
+            </div> -->
+            <h1 style="float: right; margin-right: 70px;">Ben Jaynes</h1>
+        </header>
+
+        <div id="splashDiv">
+            <img src="Images/Image 5.jpeg" alt="Combined flag of Greece and Grenada" id="splashImage">
+            <h1 id="splashTitle">Thinking Geographically</h1>
+        </div>
+
+        <div id="greeceIntro">
+            <div style="text-align: center; padding: 50px;">
+                <h1>Greece</h1>
+                <p>One of my countries for this year is Greece. Greece is located on the Mediterranean sea, to the east of Italy.</p>
+            </div>
+            <div style="width: 60%; display: flex; padding: 0 4px;" class="row">
+                <div style="flex: 5; padding: 0 4px;">
+                    <img src="Images/greece-map.gif" style="margin-top: 8px; vertical-align: middle; width: 100%;">
+                    <img src="Images/europe-north-africa.jpg" style="margin-top: 8px; vertical-align: middle; width: 100%;">
+                    <img src="Images/greeceSymbol.png" style="margin-top: 8px; vertical-align: middle; width: 100%;">
+                </div>
+                <div style="flex: 7; padding: 0 4px;">
+                    <img src="Images/greece-physical-map.jpg" style="margin-top: 8px; vertical-align: middle; width: 100%;">
+                    <img src="Images/greeceMap.png" style="margin-top: 8px; vertical-align: middle; width: 100%;">
+                </div>
+            </div>
+        </div>
+
+        <div id="grenadaIntro">
+            <div style="width: 50%; display: flex; padding: 0 4px; flex-direction: column;">
+                <div style="flex: 8;">
+                    <img src="Images/grenada-map.gif" style="width: 100%; ">
+                </div>
+                <div style="flex-direction: row; display: flex; flex: 1; width: 100%;">
+                    <img src="Images/grenadaMap2.jpg" style="width: 50%;">
+                    <img src="Images/grenadaMap.jpg" style="width: 50%;">
+                </div>
+            </div>
+            <div style="text-align: center; padding: 50px;">
+                <h1>Grenada</h1>
+                <p>My other country for this year is Grenada, which is a small island country located of the coast of South America to the north east.</p>
+            </div>
+        </div>
+
+        <script>
+            function openNav() {
+              document.getElementById("mySidenav").style.width = "250px";
+            }
+            
+            function closeNav() {
+              document.getElementById("mySidenav").style.width = "0";
+            }
+        </script>
+    </body>
+</html>
