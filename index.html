@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
-        <title>Ben Jaynes</title>
+        <title>Home</title>
         <!-- <link rel="shortcut icon" href="CSS/Images/particle4.png" type="image/x-icon"> -->
         <link href="CSS/index.css" rel="stylesheet" type="text/css" />
 
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Playfair:wght@400&display=swap" rel="stylesheet">
     </head>
-    <body>
+    <body onscroll="onScroll()">
         <div class="transitionIn"></div>
 
         <div id="mySidenav" class="sidenav">
@@ -39,7 +39,36 @@
             <img src="Images/GreeceAndGrenada copy.png" id="splashLogo">
         </div>
 
-        <div id="greeceIntro">
+
+        <div id="sideScrollingDiv" style="width:max-content;">
+            <div id="contentDiv" style="width: inherit; height: 100vh; display: flex; flex-direction: row;">
+                <div id="greeceIntro">
+                    <div style="text-align: center; padding: 50px;">
+                        <h1 class="animText">Greece</h1>
+                        <p class="animText">One of my countries for this year is Greece. Greece is located on the Mediterranean sea, to the east of Italy.</p>
+                    </div>
+                    <img src="Images/greece-map.gif" style="width: 60%;" class="animText">
+                </div>
+
+                <div id="grenadaIntro">
+                    <div style="text-align: center; padding: 50px;">
+                        <h1 class="animText">Grenada</h1>
+                        <p class="animText">My other country for this year is Grenada, which is a small island country located of the coast of South America to the north east.</p>
+                    </div>
+                    <img src="Images/grenada-map.gif" style="width: 60%;" class="animText">
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+        <!-- <div>
+            <h1>
+                Here are some more things!
+            </h1>
+        </div> -->
+
+        <!-- <div id="greeceIntro">
             <div style="text-align: center; padding: 50px;">
                 <h1 class="animText">Greece</h1>
                 <p class="animText">One of my countries for this year is Greece. Greece is located on the Mediterranean sea, to the east of Italy.</p>
@@ -53,7 +82,7 @@
                 <h1 class="animText">Grenada</h1>
                 <p class="animText">My other country for this year is Grenada, which is a small island country located of the coast of South America to the north east.</p>
             </div>
-        </div>
+        </div> -->
 
         <script>
             
@@ -88,6 +117,24 @@
             elements.forEach(element => {
             observer.observe(element);
             });
+            
+        </script>
+        
+        <script>
+            function onScroll() 
+            {
+                console.log(window.scrollY);
+
+                var value = 1040 * (window.innerWidth / 1440);
+                var endValue = 4183 * (window.innerWidth / 1440);
+
+                if (window.scrollY >= value && window.scrollY <= endValue)
+                {
+                    var scrollDiv = document.getElementById("sideScrollingDiv");
+                    
+                    scrollDiv.style.transform = "translate3d(" + (-1 * (window.scrollY - value)) + "px, " + (window.scrollY - value) + "px, 0px)"
+                }
+            }
         </script>
     </body>
 </html>
