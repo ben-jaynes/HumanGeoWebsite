@@ -6,15 +6,23 @@
         <title>Ben Jaynes</title>
         <!-- <link rel="shortcut icon" href="CSS/Images/particle4.png" type="image/x-icon"> -->
         <link href="CSS/index.css" rel="stylesheet" type="text/css" />
+
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair:wght@400&display=swap" rel="stylesheet">
     </head>
     <body>
+        <div class="transitionIn"></div>
 
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="index.html">Home</a>
-            <a href="thinkingGeographically.html">Thinking Geographically</a>
-            <a href="#">Other</a>
-            <a href="#">Other</a>
+            <a class="navLink" onclick="transitionOut('index.html')">Home</a>
+            <a class="navLink" onclick="transitionOut('thinkingGeographically.html')">Thinking Geographically</a>
+            <a class="navLink" onclick="transitionOut('#')">Population and Migration Map</a>
+            <a class="navLink" onclick="transitionOut('#')">Cultural</a>
+            <a class="navLink" onclick="transitionOut('#')">Political</a>
+            <a class="navLink" onclick="transitionOut('#')">Ag and Cultural Land Use</a>
+            <a class="navLink" onclick="transitionOut('#')">Industrial and Economic Development</a>
+            <a class="navLink" onclick="transitionOut('#')">Cities and Urban Land Use</a>
           </div>
 
         <header id="navBar">
@@ -72,6 +80,12 @@
             
             function closeNav() {
               document.getElementById("mySidenav").style.width = "0";
+            }
+
+            async function transitionOut(pageLink) {
+                document.getElementsByClassName("transitionIn")[0].className = "transitionOut";
+                await new Promise(r => setTimeout(r, 1000));
+                document.location.href = pageLink;
             }
         </script>
     </body>
