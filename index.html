@@ -47,7 +47,21 @@
                         <h1 class="animText">Greece</h1>
                         <p class="animText">One of my countries for this year is Greece. Greece is located on the Mediterranean sea, to the east of Italy.</p>
                     </div>
-                    <img src="Images/greece-map.gif" style="width: 60%;" class="animText">
+                
+                    <img src="Images/greece-map.gif"  class="animText">
+                    <img src="Images/Flag_of_Greece.svg.png" class="animText">
+
+                    <div style="text-align: center; padding: 50px; width: 700px; text-wrap:wrap;">
+                        <p class="animText">Greece has more than 2,000 islands, 170 of which are inhabited. The countries capitol is Athens, which has a population of about 3.1 million.</p>
+                    </div>
+
+                    <img src="Images/greece-city.jpg" class="animText">
+
+                    <div style="text-align: center; padding: 50px; width: 700px; text-wrap:wrap;">
+                        <p class="animText">Here is some more text talking about Greece</p>
+                    </div>
+
+                    <img src="Images/pantheon.jpg">
                 </div>
 
                 <div id="grenadaIntro">
@@ -126,7 +140,7 @@
                 console.log(window.scrollY);
 
                 var value = 1040 * (window.innerWidth / 1440);
-                var endValue = 4183 * (window.innerWidth / 1440);
+                var endValue = (document.getElementById("sideScrollingDiv").scrollWidth + 200) * (window.innerWidth / 1440);
 
                 if (window.scrollY >= value && window.scrollY <= endValue)
                 {
