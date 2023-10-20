@@ -17,7 +17,7 @@
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <a class="navLink" onclick="transitionOut('index.html')">Home</a>
             <a class="navLink" onclick="transitionOut('thinkingGeographically.html')">Thinking Geographically</a>
-            <a class="navLink" onclick="transitionOut('#')">Population and Migration Map</a>
+            <a class="navLink" onclick="transitionOut('populationMigration.html')">Population and Migration Map</a>
             <a class="navLink" onclick="transitionOut('#')">Cultural</a>
             <a class="navLink" onclick="transitionOut('#')">Political</a>
             <a class="navLink" onclick="transitionOut('#')">Ag and Cultural Land Use</a>
@@ -43,13 +43,13 @@
         <div id="sideScrollingDiv" style="width:max-content;">
             <div id="contentDiv" style="width: inherit; height: 100vh; display: flex; flex-direction: row;">
                 <div id="greeceIntro">
-                    <div style="text-align: center; padding: 50px;">
-                        <h1 class="animText">Greece</h1>
+                    <div style="text-align: center; padding: 50px; width: 700px;">
+                        <h2 class="animText">Greece</h2>
                         <p class="animText">One of my countries for this year is Greece. Greece is located on the Mediterranean sea, to the east of Italy.</p>
                     </div>
                 
                     <img src="Images/greece-map.gif"  class="animText">
-                    <img src="Images/Flag_of_Greece.svg.png" class="animText">
+                    <img src="Images/Flag_of_Greece.svg.png" class="animText" style="padding-left: 30px;">
 
                     <div style="text-align: center; padding: 50px; width: 700px; text-wrap:wrap;">
                         <p class="animText">Greece has more than 2,000 islands, 170 of which are inhabited. The countries capitol is Athens, which has a population of about 3.1 million.</p>
@@ -65,11 +65,19 @@
                 </div>
 
                 <div id="grenadaIntro">
-                    <div style="text-align: center; padding: 50px;">
-                        <h1 class="animText">Grenada</h1>
+                    <div style="text-align: center; padding: 40px; width: 700px;">
+                        <h2 class="animText">Grenada</h2>
                         <p class="animText">My other country for this year is Grenada, which is a small island country located of the coast of South America to the north east.</p>
                     </div>
-                    <img src="Images/grenada-map.gif" style="width: 60%;" class="animText">
+
+                    <img src="Images/grenada-map.gif"  class="animText">
+                    <img src="Images/Flag_of_Grenada.svg.png" class="animText" style="padding-left: 30px;">
+
+                    <div style="text-align: center; padding: 50px; width: 700px; text-wrap:wrap;">
+                        <p class="animText">Grenada is a small island country in the West Indies. The capitol of Grenada is St. George's, with a population of about 33,000 people.</p>
+                    </div>
+
+                    <img src="Images/grenada-city.webp" class="animText" style="padding-left: 30px;">
                 </div>
             </div>
             </div>
@@ -140,7 +148,7 @@
                 console.log(window.scrollY);
 
                 var value = 1040 * (window.innerWidth / 1440);
-                var endValue = (document.getElementById("sideScrollingDiv").scrollWidth + 200) * (window.innerWidth / 1440);
+                var endValue = (document.getElementById("sideScrollingDiv").scrollWidth + 1000) * (window.innerWidth / 1440);
 
                 if (window.scrollY >= value && window.scrollY <= endValue)
                 {
