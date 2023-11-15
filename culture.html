@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Thinking Geographically</title>
+        <!-- <link rel="shortcut icon" href="CSS/Images/particle4.png" type="image/x-icon"> -->
+        <link href="CSS/index.css" rel="stylesheet" type="text/css" />
+
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair:wght@400&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="transitionIn"></div>
+
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a class="navLink" onclick="transitionOut('index.html')">Home</a>
+            <a class="navLink" onclick="transitionOut('thinkingGeographically.html')">Thinking Geographically</a>
+            <a class="navLink" onclick="transitionOut('populationMigration.html')">Population and Migration Map</a>
+            <a class="navLink" onclick="transitionOut('culture.html')">Cultural</a>
+            <a class="navLink" onclick="transitionOut('#')">Political</a>
+            <a class="navLink" onclick="transitionOut('#')">Ag and Cultural Land Use</a>
+            <a class="navLink" onclick="transitionOut('#')">Industrial and Economic Development</a>
+            <a class="navLink" onclick="transitionOut('#')">Cities and Urban Land Use</a>
+          </div>
+
+        <header id="navBar">
+            <span style="font-size:30px; cursor:pointer; font-size: 60px;" onclick="openNav()">&#9776;</span>
+            <!-- <div style="display: flex; flex-direction: row; float: right; height: 80px; line-height: 80px;">
+                <a href="index.html" class="navLink">Home</a>
+                <a href="thinkingGeographically.html" class="navLink">Thinking Geographically</a>
+            </div> -->
+            <h1 style="float: right; margin-right: 70px;">Ben Jaynes</h1>
+        </header>
+
+        <div id="splashDiv">
+            <img src="Images/Image 5.jpeg" alt="Combined flag of Greece and Grenada" id="splashImage">
+            <img id="splashLogo" src="Images/cultural.png" style="width: 60%; left: 20%; top: 250px;">
+        </div>
+
+       
+        <div style="padding: 60px;">
+            <h2>Toponyms</h2>
+            <p>Greece</p>
+
+            <ul>
+                <li>Mykonos: named after it's first ruler, Mykons, who was believed to be the son or grandson of Apollo</li>
+                <li>Athens: Got it's name from the god Athena</li>
+                <li>Meteora: Derived from the Greek word meteoros meaning "raised from the ground"</li>
+                <li>Mount Athos: Athos is a giant who challenged the greek gods during the Gigantomachia</li>
+                <li>Rhodes: derived from the phoenician for snake, erod, since it was home to many snakes</li>
+                <li>Crete: might have been derived from one Kouretes who was named Kritas</li>
+                <li>Delphi: got it's name from the word dolphin, since it is said that Apollo got on a dolphin and rode from Crete to Delphi</li>
+                <li>Peloponnese: derived from a Greek myth which says that the hero Pelops conquered the whole region</li>
+                <li>Zagori: means "place behind the mountain"</li>
+                <li>Zakynthos: named after Zakynthos, son of a legendary Arcadian chief</li>
+            </ul>
+
+            <p>Grenada</p>
+
+            <ul>
+                <li>Grenada: likely named by Spanish sailors after the gity of Granada</li>
+                <li>St. Georges: named after the patron saint of England</li>
+                <li>Mt. Moritz: named after a french man, Harding Moritz</li>
+                <li>Gouave: named "L'Anse Goyave" or "Guava Cove" by it's original French inhabitants since guava trees grew so well</li>
+                <li>Eli Hill: name meaning "great hill" in French</li>
+                <li>Grenville: named after a British prime minister, George Grenville</li>
+                <li>Bogles: town named for the plantation of Robert Bogle</li>
+                <li>Carriacou: name derived from "Kayryouacou" meaning "land surrounded by reefs"</li>
+                <li>Mt. Parnassus: derived from the word parna meaning house</li>
+                <li>Grand Roy: the name means great king</li>
+            </ul>
+        </div>
+
+        
+
+
+        <script>
+            function openNav() {
+              document.getElementById("mySidenav").style.width = "250px";
+            }
+            
+            function closeNav() {
+              document.getElementById("mySidenav").style.width = "0";
+            }
+
+            async function transitionOut(pageLink) {
+                document.getElementsByClassName("transitionIn")[0].className = "transitionOut";
+                await new Promise(r => setTimeout(r, 1000));
+                document.location.href = pageLink;
+            }
+
+            const elements = document.querySelectorAll('.animText');
+            const options = {
+                root: null,
+                rootMargin: '0px',
+                threshold: .4
+            }
+            const callbacks = (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting){
+                entry.target.classList.add('animateIn');
+                }
+            });
+            }
+            let observer = new IntersectionObserver(callbacks, options);
+            elements.forEach(element => {
+            observer.observe(element);
+            });
+        </script>
+    </body>
+</html>
