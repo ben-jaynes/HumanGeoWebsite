@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Thinking Geographically</title>
+        <!-- <link rel="shortcut icon" href="CSS/Images/particle4.png" type="image/x-icon"> -->
+        <link href="CSS/index.css" rel="stylesheet" type="text/css" />
+
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair:wght@400&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="transitionIn"></div>
+
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a class="navLink" onclick="transitionOut('index.html')">Home</a>
+            <a class="navLink" onclick="transitionOut('thinkingGeographically.html')">Thinking Geographically</a>
+            <a class="navLink" onclick="transitionOut('populationMigration.html')">Population and Migration Map</a>
+            <a class="navLink" onclick="transitionOut('culture.html')">Cultural</a>
+            <a class="navLink" onclick="transitionOut('political.html')">Political</a>
+            <a class="navLink" onclick="transitionOut('agriculture.html')">Ag and Cultural Land Use</a>
+            <a class="navLink" onclick="transitionOut('landUse.html')">Cities and Urban Land Use</a>
+            <a class="navLink" onclick="transitionOut('#')">Industrial and Economic Development</a>
+          </div>
+
+        <header id="navBar">
+            <span style="font-size:30px; cursor:pointer; font-size: 60px;" onclick="openNav()">&#9776;</span>
+            <!-- <div style="display: flex; flex-direction: row; float: right; height: 80px; line-height: 80px;">
+                <a href="index.html" class="navLink">Home</a>
+                <a href="thinkingGeographically.html" class="navLink">Thinking Geographically</a>
+            </div> -->
+            <h1 style="float: right; margin-right: 70px;">Ben Jaynes</h1>
+        </header>
+
+        <div id="splashDiv">
+            <img src="Images/Image 5.jpeg" alt="Combined flag of Greece and Grenada" id="splashImage">
+            <img id="splashLogo" src="Images/urbanLandUse2.png" style="width: 60%; left: 10%; top: 250px;">
+        </div>
+
+       
+        <div style="display: flex; flex-direction: row;">
+            <div style="flex: 1; text-align: center;">
+                <h2>Athens</h2>
+                <img src="Images/athens.webp" style="width: 80%;">
+                <h1>
+                    Population: 643,452 <br>
+                    Main Language: Greek <br>
+                    Landmarks: Acropolis, Parthenon <br>
+                </h1>
+                <img src="Images/athens2.webp" style="width: 80%;">
+                <hr>
+                <img src="Images/greeceGoogleMaps.png" style="width: 80%;">
+                <h3 style="width: 80%; margin-left: 10%;">Athens mostly follows a galactic city model with there being a central city with areas of interest scattered around it like the airport</h3>
+                <img src="Images/athens3.jpg" style="width: 80%;">
+                <h3 style="width: 80%; margin-left: 10%;">Athens could be considered a world city since, while it is not the biggest and doesn't have a very large influence on the rest of the world, it is still a very big city and has enough influence on other parts of the world.</h3>
+                <img src="Images/greecePopulationData.png" style="width: 80%;">
+                <h3 style="width: 80%; margin-left: 10%;">Greece follows the rank-size rule to a relatively high degree with the populations of its biggest cities mostly following the rule</h3>
+            </div>
+            <div style="flex: 1; text-align: center;">
+                <h2>St. Georges</h2>
+                <img src="Images/stGeorges.webp" style="width: 80%;">
+                <h1>
+                    Population: 7,500 (town) <br>
+                    Main Language: English <br>
+                    Landmarks: Fort George, Fort Frederick <br>
+                </h1>
+                <img src="Images/stGeorges2.jpg" style="width: 80%;">
+                <hr>
+                <img src="Images/stGeorgesGoogleMaps.png" style="width: 80%;">
+                <h3 style="width: 80%; margin-left: 10%;">St Georges seems to follow the Latin American city model the best because there seems to be a spine going through it, even though there isn't really an industial section</h3>
+                <img src="Images/stGeorges3.jpg" style="width: 80%;">
+                <h3 style="width: 80%; margin-left: 10%;">St. Georges doesn't really follow any of these classifications since it is not big enough to be a mega or meta city, it doesn't really have an influence anywhere else in the world, the populaiton isn't rapidly growing, and it isn't on the edge of a larger city</h3>
+                <img src="Images/grenadaPopInfo.png" style="width: 80%;">
+                <h3 style="width: 80%; margin-left: 10%;">Grenada mostly follows the rank-size rule, with the populations of its cities and towns being close to what they should be according to the rule</h3>
+            </div>
+        </div>
+
+        
+
+
+        <script>
+            function openNav() {
+              document.getElementById("mySidenav").style.width = "250px";
+            }
+            
+            function closeNav() {
+              document.getElementById("mySidenav").style.width = "0";
+            }
+
+            async function transitionOut(pageLink) {
+                document.getElementsByClassName("transitionIn")[0].className = "transitionOut";
+                await new Promise(r => setTimeout(r, 1000));
+                document.location.href = pageLink;
+            }
+
+            const elements = document.querySelectorAll('.animText');
+            const options = {
+                root: null,
+                rootMargin: '0px',
+                threshold: .4
+            }
+            const callbacks = (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting){
+                entry.target.classList.add('animateIn');
+                }
+            });
+            }
+            let observer = new IntersectionObserver(callbacks, options);
+            elements.forEach(element => {
+            observer.observe(element);
+            });
+        </script>
+    </body>
+</html>
