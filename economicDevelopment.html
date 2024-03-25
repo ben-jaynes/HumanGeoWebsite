@@ -36,62 +36,86 @@
 
         <div id="splashDiv">
             <img src="Images/Image 5.jpeg" alt="Combined flag of Greece and Grenada" id="splashImage">
-            <img id="splashLogo" src="Images/political-title.png" style="width: 60%; left: 20%; top: 250px;">
+            <img id="splashLogo" src="Images/urbanLandUse2.png" style="width: 60%; left: 10%; top: 250px;">
         </div>
 
-       
-        <h2 style="text-align: center;">Grenada SWOT Analysis</h2>
-        <table>
-            <tr>
-                <th></th>
-                <th>Stabalizing</th>
-                <th>Destabalizing</th>
-            </tr>
-            <tr>
-                <th>Internal</th>
-                <td>
-                    <ul>
-                        <li>Grenada is 96% Christian</li>
-                        <li>82% African</li>
-                        <li>Grenada is divided into 6 different regions</li>
-                        <li>Grenada has a literacy rate of 98.6%</li>
-                        <li>Grenada has a federal government</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul>
-                        <li>Grenada is suffering from internal debt</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <th>External</th>
-                <td>
-                    <ul>
-                        <li>Grenada participates in both the Caribbean Community (CARICOM) and the <br>Organization of Eastern Caribbean States (OCES) </li>
-                    </ul>
-                </td>
-                <td>
-                    <ul>
-                        <li>Grenada has transferred between several different countries</li>
-                        <li>Grenada is ruled by King Charles III</li>
-                        <li>Grenada heavily relies on tourism for income</li>
-                        <li>Grenada has no military</li>
-                    </ul>
-                </td>
-            </tr>
-        </table>
+       <div>
+        <table  id="countryList">
+       </div>
 
-        <h3 style="padding: 20px;">
-            Overall, Grenada is mostly a stable state, since it has a very similar ethnic population, and since most of the people are Christian. 
-            This means that most of the people living in Grenada have the same religion and background, and so there is a lot more unity then somewhere with varying religions and backgrounds.
-            Grenada also has a strong government, with a multi level system. Even though Grenada has transferred between several different powers, and is heavialy reliant on tourism for income, I would still say that it is overall a pretty stable state
-        </h3>
 
         
 
-
+        <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+        <script src="https://unpkg.com/validator@latest/validator.min.js"></script>
+        <!-- <script src="sorttable.js"></script> -->
         <script>
+            
+
+            const Http = new XMLHttpRequest();
+            const url='https://api.worldbank.org/v2/country/all/indicator/SE.PRM.CMPT.ZS;SE.XPD.TOTL.GD.ZS;SE.ADT.LITR.ZS?format=json&source=2&mrv=1&per_page=1000';
+            Http.open("GET", url);
+            Http.send();
+
+            var text = ""
+            Http.onreadystatechange = (e) => {
+                text = Http.responseText;
+                const data = JSON.parse(text);
+                
+                var newData = [];
+
+                for (var i = 0; i < data[1].length; i++)
+                {
+                    if(validator.isISO31661Alpha3(data[1][i].countryiso3code) || validator.isISO31661Alpha2(data[1][i].countryiso3code)) {
+                        newData.push(data[1][i]);
+                    }
+                    
+                }
+
+                var countries = {};
+
+                for (var i = 0; i < newData.length; i++)
+                {
+                    countries[newData[i].country.value] = [];
+                }
+                for (var i = 0; i < newData.length; i++)
+                {
+                    countries[newData[i].country.value].push(newData[i]);
+                }
+
+                
+               
+                const countryList = document.getElementById("countryList");
+                countryList.innerHTML = "<thead><tr><th>Country</th><th>Score</th></tr></thead>";
+                const tableBody = document.createElement("tbody");
+                
+
+                for (const [key, value] of Object.entries(countries))
+                {
+                    const row = document.createElement("tr");
+                    const country = document.createElement("td");
+                    const dataPoint = document.createElement("td");
+                    country.innerHTML = value[0].country.value;
+                    dataPoint.innerHTML = value[0].value;
+
+                    row.appendChild(country);
+                    row.appendChild(dataPoint);
+
+                    tableBody.appendChild(row);
+                }
+
+
+                countryList.appendChild(tableBody);
+
+                console.log("hi");
+                
+                
+            }
+
+            
+
+            
+
             function openNav() {
               document.getElementById("mySidenav").style.width = "250px";
             }
