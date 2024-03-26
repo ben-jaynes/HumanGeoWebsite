@@ -5,10 +5,12 @@
         <meta name="viewport" content="width=device-width">
         <title>Thinking Geographically</title>
         <!-- <link rel="shortcut icon" href="CSS/Images/particle4.png" type="image/x-icon"> -->
-        <link href="CSS/index.css" rel="stylesheet" type="text/css" />
+        <link href="CSS/economicDevelopment.css" rel="stylesheet" type="text/css" />
 
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Playfair:wght@400&display=swap" rel="stylesheet">
+        <script src="sortable.min.js"></script>
+        <link rel="stylesheet" href="sortable-theme-light.css" />
     </head>
     <body>
         <div class="transitionIn"></div>
@@ -40,7 +42,10 @@
         </div>
 
        <div>
-        <table  id="countryList">
+        <table class="sortable-theme-light" id="countryList" data-sortable>
+            <thead><tr><th>Country</th><th>Score</th></tr></thead>
+        </table>
+
        </div>
 
 
@@ -48,55 +53,54 @@
 
         <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
         <script src="https://unpkg.com/validator@latest/validator.min.js"></script>
-        <!-- <script src="sorttable.js"></script> -->
         <script>
             
-
+            
             const Http = new XMLHttpRequest();
-            const url='https://api.worldbank.org/v2/country/all/indicator/SE.PRM.CMPT.ZS;SE.XPD.TOTL.GD.ZS;SE.ADT.LITR.ZS?format=json&source=2&mrv=1&per_page=1000';
+            const url="https://raw.githubusercontent.com/iancoleman/cia_world_factbook_api/master/data/factbook.json";
             Http.open("GET", url);
             Http.send();
+            //literacy rate
+            //total electrification
+            //GDP
 
-            var text = ""
             Http.onreadystatechange = (e) => {
                 text = Http.responseText;
                 const data = JSON.parse(text);
-                
-                var newData = [];
 
-                for (var i = 0; i < data[1].length; i++)
-                {
-                    if(validator.isISO31661Alpha3(data[1][i].countryiso3code) || validator.isISO31661Alpha2(data[1][i].countryiso3code)) {
-                        newData.push(data[1][i]);
-                    }
-                    
-                }
-
-                var countries = {};
-
-                for (var i = 0; i < newData.length; i++)
-                {
-                    countries[newData[i].country.value] = [];
-                }
-                for (var i = 0; i < newData.length; i++)
-                {
-                    countries[newData[i].country.value].push(newData[i]);
-                }
-
-                
-               
                 const countryList = document.getElementById("countryList");
-                countryList.innerHTML = "<thead><tr><th>Country</th><th>Score</th></tr></thead>";
+                //countryList.innerHTML = "<thead><tr><th>Country</th><th>Score</th></tr></thead>";
                 const tableBody = document.createElement("tbody");
-                
 
-                for (const [key, value] of Object.entries(countries))
+                console.log(data);
+
+                for (const [key, value] of Object.entries(data.countries))
                 {
+                    //console.log(value);
+
                     const row = document.createElement("tr");
                     const country = document.createElement("td");
                     const dataPoint = document.createElement("td");
-                    country.innerHTML = value[0].country.value;
-                    dataPoint.innerHTML = value[0].value;
+                    country.innerHTML = value.data.name;
+
+
+                    // if (value.length == 3)
+                    // {
+                    //     dataPoint.innerHTML = ((value[0].value * 1/3) + (value[1].value * 1/3) + (value[2].value * 1/3))/100;
+                    // } else {
+                    //     dataPoint.innerHTML = "Not Enought Data";
+                    // }
+                    if ("people" in value.data && "literacy" in value.data.people && "school_life_expectancy" in value.data.people && "education_expenditures" in value.data.people)
+                    {   
+                        console.log(value.data.name);
+                        var literacy = value.data.people.literacy.total_population.value;
+                        var schoolLife = value.data.people.school_life_expectancy.total.value;
+                        var educationSpending = value.data.people.education_expenditures.percent_of_gdp;
+
+                        dataPoint.innerHTML = ((1/3 * literacy) + (1/3 * educationSpending) + (schoolLife/22 * 1/3 * 100 ))/100;
+                    }
+                    
+                    
 
                     row.appendChild(country);
                     row.appendChild(dataPoint);
@@ -104,13 +108,75 @@
                     tableBody.appendChild(row);
                 }
 
-
                 countryList.appendChild(tableBody);
-
-                console.log("hi");
                 
-                
+                Sortable.init();
             }
+            // const Http = new XMLHttpRequest();
+            // const url='https://api.worldbank.org/v2/country/all/indicator/SE.PRM.CMPT.ZS;SE.XPD.TOTL.GD.ZS;SE.ADT.LITR.ZS?format=json&source=2&mrnev=1&per_page=1000';
+            // Http.open("GET", url);
+            // Http.send();
+
+            // var text = ""
+            // Http.onreadystatechange = (e) => {
+            //     text = Http.responseText;
+            //     const data = JSON.parse(text);
+                
+            //     var newData = [];
+
+            //     for (var i = 0; i < data[1].length; i++)
+            //     {
+            //         if(validator.isISO31661Alpha3(data[1][i].countryiso3code) || validator.isISO31661Alpha2(data[1][i].countryiso3code)) {
+            //             newData.push(data[1][i]);
+            //         }
+                    
+            //     }
+
+            //     var countries = {};
+
+            //     for (var i = 0; i < newData.length; i++)
+            //     {
+            //         countries[newData[i].country.value] = [];
+            //     }
+            //     for (var i = 0; i < newData.length; i++)
+            //     {
+            //         countries[newData[i].country.value].push(newData[i]);
+            //     }
+            //     console.log(countries);
+                
+               
+            //     const countryList = document.getElementById("countryList");
+            //     countryList.innerHTML = "<thead><tr><th>Country</th><th>Score</th></tr></thead>";
+            //     const tableBody = document.createElement("tbody");
+                
+
+            //     for (const [key, value] of Object.entries(countries))
+            //     {
+            //         const row = document.createElement("tr");
+            //         const country = document.createElement("td");
+            //         const dataPoint = document.createElement("td");
+            //         country.innerHTML = value[0].country.value;
+            //         if (value.length == 3)
+            //         {
+            //             dataPoint.innerHTML = ((value[0].value * 1/3) + (value[1].value * 1/3) + (value[2].value * 1/3))/100;
+            //         } else {
+            //             dataPoint.innerHTML = "Not Enought Data";
+            //         }
+                    
+
+            //         row.appendChild(country);
+            //         row.appendChild(dataPoint);
+
+            //         tableBody.appendChild(row);
+            //     }
+
+
+            //     countryList.appendChild(tableBody);
+
+            //     console.log("hi");
+                
+                
+            // }
 
             
 

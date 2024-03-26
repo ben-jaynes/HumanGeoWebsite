@@ -187,21 +187,7 @@ h2 {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-table {
-    border: 2px solid black;
-    margin: 50px;
-    border-collapse: collapse;
-}
 
-th {
-    background-color: #dddddd;
-    border: 2px solid black;
-    font-size: 30px;
-}
-
-td {
-    border: 2px solid black;
-}
 
 .reset {
     all: unset;
