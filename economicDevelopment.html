@@ -41,12 +41,30 @@
             <img id="splashLogo" src="Images/urbanLandUse2.png" style="width: 60%; left: 10%; top: 250px;">
         </div>
 
-       <div>
-        <table class="sortable-theme-light" id="countryList" data-sortable>
-            <thead><tr><th>Country</th><th>Score</th></tr></thead>
-        </table>
+        <h2>ESI (Economic Stability Index)</h2>
 
-       </div>
+        <h3>The index that I have created is the ESI, or the economic stability index. This is an index that determines the economic stability of a country based on factors like GDP and the percentage of the population below poverty. <br> This index is calculated by multiplying the the GDP, percentage of workforce in the service sector, the percentage of population below povery, and the taxes revenue as part of GDP by 1/4, and then adding them all together. <br><br> Greece ranks 33rd with a score of 0.482 <br> Grenada ranks 85th with a score of 0.414</h3>
+
+        <div style="display: flex; flex-direction: row;">
+            <div style="flex: 1; padding: 10px;">
+                <table class="sortable-theme-light" id="countryList" style="width: 90%;" data-sortable>
+                    <thead><tr><th>Country</th><th>Score</th><th>Rank</th></tr></thead>
+                </table>
+            </div>
+            <div style="padding: 10px; flex: 1;">
+                <h3>
+                    Overall, I was not very suprised at how well both of my countries did on the scale, as I expected Greece to rank relatively high, with grenada ranking much lower. I expected this since Greece has a much more developed economy, with a much higher GDP, amount of exports, imports, and is overall more stable 
+                    Out of the factors that influenced the index, both Greece and Grenada have a similar percentage of their population below the poverty line or about 37%, but Greece has almost 200 times the GDP of Grenada. Greece also has a higher percentage of its workforce in the service sector, although not by a lot.
+                    <br>
+                    <br>
+                    Some countries that suprised me with how they ranked on this list included Tuvalu, which ranked as high as it did because of how much money it makes off of taxes, and the fact that there is a lower percentage of people below the poverty line, and a decent portion of their population works in the service sector. 
+                    There is also Palau, who ranks so high because of the high percentage of workers in the service industry.
+                </h3>
+            </div>
+        </div>
+       
+
+       
 
 
         
@@ -65,118 +83,83 @@
             //GDP
 
             Http.onreadystatechange = (e) => {
-                text = Http.responseText;
-                const data = JSON.parse(text);
-
-                const countryList = document.getElementById("countryList");
-                //countryList.innerHTML = "<thead><tr><th>Country</th><th>Score</th></tr></thead>";
-                const tableBody = document.createElement("tbody");
-
-                console.log(data);
-
-                for (const [key, value] of Object.entries(data.countries))
+                if (Http.readyState == 4)
                 {
-                    //console.log(value);
+                    text = Http.responseText;
+                    const data = JSON.parse(text);
 
-                    const row = document.createElement("tr");
-                    const country = document.createElement("td");
-                    const dataPoint = document.createElement("td");
-                    country.innerHTML = value.data.name;
+                    console.log(data);
 
+                    const countryList = document.getElementById("countryList");
+                    //countryList.innerHTML = "<thead><tr><th>Country</th><th>Score</th></tr></thead>";
+                    const tableBody = document.createElement("tbody");
 
-                    // if (value.length == 3)
-                    // {
-                    //     dataPoint.innerHTML = ((value[0].value * 1/3) + (value[1].value * 1/3) + (value[2].value * 1/3))/100;
-                    // } else {
-                    //     dataPoint.innerHTML = "Not Enought Data";
-                    // }
-                    if ("people" in value.data && "literacy" in value.data.people && "school_life_expectancy" in value.data.people && "education_expenditures" in value.data.people)
-                    {   
-                        console.log(value.data.name);
-                        var literacy = value.data.people.literacy.total_population.value;
-                        var schoolLife = value.data.people.school_life_expectancy.total.value;
-                        var educationSpending = value.data.people.education_expenditures.percent_of_gdp;
+                    console.log(data);
 
-                        dataPoint.innerHTML = ((1/3 * literacy) + (1/3 * educationSpending) + (schoolLife/22 * 1/3 * 100 ))/100;
+                    var rankDict = {};
+
+                    for (const [key, value] of Object.entries(data.countries))
+                    {
+                        //console.log(value);
+
+                        const row = document.createElement("tr");
+                        const country = document.createElement("td");
+                        const dataPoint = document.createElement("td");
+                        const rank = document.createElement("td");
+                        country.innerHTML = "<a href='https://en.wikipedia.org/wiki/" + value.data.name + "'>" + value.data.name  + "</a>";
+
+                        if ("economy" in value.data && "gdp" in value.data.economy && "composition" in value.data.economy.gdp && "by_sector_of_origin" in value.data.economy.gdp.composition && "sectors" in value.data.economy.gdp.composition.by_sector_of_origin && "services" in value.data.economy.gdp.composition.by_sector_of_origin.sectors && "official_exchange_rate" in value.data.economy.gdp && "population_below_poverty_line" in value.data.economy && "taxes_and_other_revenues" in value.data.economy)
+                        {
+                            servicePercent = value.data.economy.gdp.composition.by_sector_of_origin.sectors.services.value;
+                            gdp = value.data.economy.gdp.official_exchange_rate.USD;
+                            populationBelowPoverty = value.data.economy.population_below_poverty_line.value;
+                            taxesRevenuePercentGDP = value.data.economy.taxes_and_other_revenues.percent_of_gdp;
+
+                            dataPoint.innerHTML = parseFloat(((servicePercent * 1/4) + (gdp / 25000000000000 * 1/4 * 100) + ((100 - populationBelowPoverty) * 1/4) + (taxesRevenuePercentGDP * 1/4))/100).toFixed(3);
+
+                            rankDict[value.data.name] = dataPoint.innerHTML;
+                        } else {
+                            dataPoint.innerHTML = "";
+                            rankDict[value.data.name] = dataPoint.innerHTML;
+                        }
+                        
+
+                        row.appendChild(country);
+                        row.appendChild(dataPoint);
+                        rank.id = value.data.name + " rank";
+                        row.appendChild(rank);
+
+                        tableBody.appendChild(row);
                     }
-                    
-                    
 
-                    row.appendChild(country);
-                    row.appendChild(dataPoint);
+                    countryList.appendChild(tableBody);
+                    
+                    Sortable.init();
 
-                    tableBody.appendChild(row);
+                    console.log(rankDict);
+
+                    // Step - 1
+                    // Create the array of key-value pairs
+                    var items = Object.keys(rankDict).map(
+                    (key) => { return [key, rankDict[key]] });
+
+                    // Step - 2
+                    // Sort the array based on the second element (i.e. the value)
+                    items.sort(
+                    (second, first) => { return first[1] - second[1] }
+                    );
+
+                    // Step - 3
+                    // Obtain the list of keys in sorted order of the values.
+                    var keys = items.map(
+                    (e) => { return e[0] });
+
+                    for (var i = 0; i < keys.length; i++)
+                    {
+                        document.getElementById(keys[i] + " rank").innerHTML = i + 1;
+                    }
                 }
-
-                countryList.appendChild(tableBody);
-                
-                Sortable.init();
             }
-            // const Http = new XMLHttpRequest();
-            // const url='https://api.worldbank.org/v2/country/all/indicator/SE.PRM.CMPT.ZS;SE.XPD.TOTL.GD.ZS;SE.ADT.LITR.ZS?format=json&source=2&mrnev=1&per_page=1000';
-            // Http.open("GET", url);
-            // Http.send();
-
-            // var text = ""
-            // Http.onreadystatechange = (e) => {
-            //     text = Http.responseText;
-            //     const data = JSON.parse(text);
-                
-            //     var newData = [];
-
-            //     for (var i = 0; i < data[1].length; i++)
-            //     {
-            //         if(validator.isISO31661Alpha3(data[1][i].countryiso3code) || validator.isISO31661Alpha2(data[1][i].countryiso3code)) {
-            //             newData.push(data[1][i]);
-            //         }
-                    
-            //     }
-
-            //     var countries = {};
-
-            //     for (var i = 0; i < newData.length; i++)
-            //     {
-            //         countries[newData[i].country.value] = [];
-            //     }
-            //     for (var i = 0; i < newData.length; i++)
-            //     {
-            //         countries[newData[i].country.value].push(newData[i]);
-            //     }
-            //     console.log(countries);
-                
-               
-            //     const countryList = document.getElementById("countryList");
-            //     countryList.innerHTML = "<thead><tr><th>Country</th><th>Score</th></tr></thead>";
-            //     const tableBody = document.createElement("tbody");
-                
-
-            //     for (const [key, value] of Object.entries(countries))
-            //     {
-            //         const row = document.createElement("tr");
-            //         const country = document.createElement("td");
-            //         const dataPoint = document.createElement("td");
-            //         country.innerHTML = value[0].country.value;
-            //         if (value.length == 3)
-            //         {
-            //             dataPoint.innerHTML = ((value[0].value * 1/3) + (value[1].value * 1/3) + (value[2].value * 1/3))/100;
-            //         } else {
-            //             dataPoint.innerHTML = "Not Enought Data";
-            //         }
-                    
-
-            //         row.appendChild(country);
-            //         row.appendChild(dataPoint);
-
-            //         tableBody.appendChild(row);
-            //     }
-
-
-            //     countryList.appendChild(tableBody);
-
-            //     console.log("hi");
-                
-                
-            // }
 
             
 
